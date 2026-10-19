@@ -229,7 +229,7 @@ public class DemolitionManager : IDisposable
         }
     }
 
-    private void OnTerritoryChange(uint territory)
+    private void OnTerritoryChange(ushort territory)
     {
         if (InsideHouse(territory))
         {

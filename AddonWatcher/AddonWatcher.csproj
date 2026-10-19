@@ -9,4 +9,9 @@
   <PropertyGroup>
     <Use_DalamudPackager>false</Use_DalamudPackager>
   </PropertyGroup>
+
+  <ItemGroup>
+    <!-- ISigScanner is in Dalamud.Game in API 13 (it moved to Dalamud.Plugin.Services in API 15). -->
+    <Using Include="Dalamud.Game" />
+  </ItemGroup>
 </Project>

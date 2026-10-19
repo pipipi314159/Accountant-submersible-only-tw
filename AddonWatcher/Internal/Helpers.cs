@@ -8,6 +8,6 @@ public static class Helpers
 {
     public static unsafe SeString TextNodeToString(AtkTextNode* node)
         => node->AtkResNode.Type == NodeType.Text 
-            ? node->NodeText.AsDalamudSeString()
+            ? node->NodeText.StringPtr.AsDalamudSeString()
             : SeString.Empty;
 }

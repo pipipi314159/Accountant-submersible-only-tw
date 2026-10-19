@@ -173,7 +173,7 @@ public partial class TimerManager
                 else
                 {
                     var fill     = button->Component->UldManager.NodeList[8]->ScaleX;
-                    var seString = ((AtkTextNode*) button->Component->UldManager.NodeList[9])->NodeText.AsDalamudSeString();
+                    var seString = ((AtkTextNode*) button->Component->UldManager.NodeList[9])->NodeText.StringPtr.AsDalamudSeString();
                     seString.Payloads.RemoveAll(p => p is NewLinePayload);
                     var name = seString.TextValue;
                     var (item, _, grade) = Accountant.GameData.FindWheel(name);

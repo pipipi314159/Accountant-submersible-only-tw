@@ -1,6 +1,7 @@
 ﻿using Accountant.Classes;
 using Accountant.Enums;
 using Accountant.SeFunctions;
+using Dalamud.Game;
 using Dalamud.Plugin.Services;
 using FFXIVClientStructs.FFXIV.Client.Game;
 
