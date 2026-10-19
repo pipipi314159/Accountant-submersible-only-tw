@@ -82,13 +82,9 @@ internal class GameData : IGameData
     public GameData(IPluginLog log, IGameGui gui, IClientState state, IFramework framework, IDataManager data, IObjectTable objects)
     {
         _fcTracker ??= new FreeCompanyTracker(log, gui, state, framework, objects);
-        _crops     ??= new Crops(log, data);
-        _wheels    ??= new Wheels(data);
-        _maps      ??= new Maps(data);
-        _plots     ??= new Plots(data);
+        // Submersible-only build: crops, wheels, maps and plots are not loaded.
         SetupWorlds(data);
         ++_subscribers;
-        Localization.Initialize(data);
     }
 
     private static void SetupWorlds(IDataManager data)

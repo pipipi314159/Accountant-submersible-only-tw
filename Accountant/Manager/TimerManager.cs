@@ -32,12 +32,7 @@ public sealed partial class TimerManager : IDisposable
     {
         _managers =
         [
-            new RetainerManager(RetainerTimers),
-            new CropManager(PlotCropTimers, PrivateCropTimers),
             new SubmersibleManager(SubmersibleTimers, AirshipTimers, CompanyStorage),
-            new AirshipManager(AirshipTimers, SubmersibleTimers, CompanyStorage),
-            new WheelManager(WheelTimers, CompanyStorage),
-            new TaskManager(TaskTimers),
         ];
     }
 

@@ -1,4 +1,4 @@
-﻿<Project Sdk="Dalamud.NET.Sdk/15.0.0">
+﻿<Project Sdk="Dalamud.NET.Sdk/13.0.0">
   <PropertyGroup>
     <RootNamespace>Accountant</RootNamespace>
     <AssemblyName>Accountant</AssemblyName>
@@ -9,6 +9,12 @@
     <WarningLevel>4</WarningLevel>
     <OutputPath>bin\$(Configuration)\</OutputPath>
   </PropertyGroup>
+
+  <!-- Submersible-only build: the task/map timers use IChatMessage, which does not exist in API 13. -->
+  <ItemGroup>
+    <Compile Remove="Manager\TimerManager.TaskManager.cs" />
+    <Compile Remove="Manager\TimerManager.MapManager.cs" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Accountant.GameData\Accountant.GameData.csproj" />

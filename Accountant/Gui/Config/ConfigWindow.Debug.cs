@@ -55,6 +55,7 @@ public partial class ConfigWindow
 
     private void DrawAddresses()
     {
+        return; // Submersible-only build: native helpers are not initialised.
         if (!ImGui.CollapsingHeader("Addresses", ImGuiTreeNodeFlags.DefaultOpen))
             return;
 
@@ -115,6 +116,7 @@ public partial class ConfigWindow
 
     private void DrawSquadron()
     {
+        return; // Submersible-only build: native helpers are not initialised.
         if (!ImGui.CollapsingHeader("Squadron", ImGuiTreeNodeFlags.DefaultOpen))
             return;
 
