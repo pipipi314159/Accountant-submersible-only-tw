@@ -5,7 +5,7 @@
     "InternalName": "Accountant",
     "AssemblyVersion": "1.8.3.1",
     "TestingAssemblyVersion": "1.8.3.1",
-    "RepoUrl": "https://github.com/pipipi314159/Accountant",
+    "RepoUrl": "https://github.com/pipipi314159/Accountant-submersible-only-tw",
     "ApplicableVersion": "any",
     "Punchline": "潛水艇探索計時器（台服 API13 精簡版）。",
     "Description": "以 Accountant 1.8.3.1 為基礎的精簡版，只保留潛水艇探索的回航計時，其餘功能（飛空艇、園藝、金碟、軍隊等）已停用。(API13 版本，適用於台服)",
@@ -18,9 +18,9 @@
     "LoadPriority": 0,
     "LoadRequiredState": 0,
     "LoadSync": false,
-    "DownloadLinkInstall": "https://github.com/pipipi314159/Accountant/releases/download/v1.8.3.1/latest.zip",
-    "DownloadLinkTesting": "https://github.com/pipipi314159/Accountant/releases/download/v1.8.3.1/latest.zip",
-    "DownloadLinkUpdate": "https://github.com/pipipi314159/Accountant/releases/download/v1.8.3.1/latest.zip",
+    "DownloadLinkInstall": "https://github.com/pipipi314159/Accountant-submersible-only-tw/releases/download/v1.8.3.1/latest.zip",
+    "DownloadLinkTesting": "https://github.com/pipipi314159/Accountant-submersible-only-tw/releases/download/v1.8.3.1/latest.zip",
+    "DownloadLinkUpdate": "https://github.com/pipipi314159/Accountant-submersible-only-tw/releases/download/v1.8.3.1/latest.zip",
     "Changelog": "台服 API13 精簡版：只保留潛水艇計時。"
   }
 ]
