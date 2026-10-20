@@ -150,7 +150,9 @@ internal class GameData : IGameData
         if (world.IsPublic)
             return true;
 
-        return char.IsUpper((char)world.Name.Data.Span[0]);
+        // Worlds of clients that do not use the latin alphabet (for example Chinese worlds) start with a non-ASCII character.
+        var name = world.Name.ExtractText();
+        return name.Length > 0 && (char.IsUpper(name[0]) || name[0] > 0x7F);
     }
 
     public void Dispose()

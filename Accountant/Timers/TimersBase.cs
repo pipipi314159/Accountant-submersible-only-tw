@@ -119,8 +119,7 @@ public class TimersBase<TIdent, TInfo> : ITimers<TIdent, TInfo>
                         InternalData[ident] = info;
                     else
                     {
-                        Dalamud.Log.Error($"{ParseError}:\nIdentifier was not valid.");
-                        file.Delete();
+                        Dalamud.Log.Error($"{ParseError}:\nIdentifier was not valid ({ident}). The file {file.Name} was kept.");
                     }
                 }
                 catch (Exception e)
