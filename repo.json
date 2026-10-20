@@ -3,8 +3,8 @@
     "Author": "Ottermandias",
     "Name": "Accountant",
     "InternalName": "Accountant",
-    "AssemblyVersion": "1.8.3.1",
-    "TestingAssemblyVersion": "1.8.3.1",
+    "AssemblyVersion": "1.8.3.2",
+    "TestingAssemblyVersion": "1.8.3.2",
     "RepoUrl": "https://github.com/pipipi314159/Accountant-submersible-only-tw",
     "ApplicableVersion": "any",
     "Punchline": "潛水艇探索計時器（台服 API13 精簡版）。",
@@ -14,13 +14,13 @@
     "IsHide": false,
     "IsTestingExclusive": false,
     "DownloadCount": 0,
-    "LastUpdate": 1792390000,
+    "LastUpdate": 1792493220,
     "LoadPriority": 0,
     "LoadRequiredState": 0,
     "LoadSync": false,
-    "DownloadLinkInstall": "https://github.com/pipipi314159/Accountant-submersible-only-tw/releases/download/v1.8.3.1/latest.zip",
-    "DownloadLinkTesting": "https://github.com/pipipi314159/Accountant-submersible-only-tw/releases/download/v1.8.3.1/latest.zip",
-    "DownloadLinkUpdate": "https://github.com/pipipi314159/Accountant-submersible-only-tw/releases/download/v1.8.3.1/latest.zip",
-    "Changelog": "台服 API13 精簡版：只保留潛水艇計時。"
+    "DownloadLinkInstall": "https://github.com/pipipi314159/Accountant-submersible-only-tw/releases/download/v1.8.3.2/latest.zip",
+    "DownloadLinkTesting": "https://github.com/pipipi314159/Accountant-submersible-only-tw/releases/download/v1.8.3.2/latest.zip",
+    "DownloadLinkUpdate": "https://github.com/pipipi314159/Accountant-submersible-only-tw/releases/download/v1.8.3.2/latest.zip",
+    "Changelog": "修正插件啟動時 TimerWindow 初始化失敗（Sequence contains no matching element）。"
   }
 ]

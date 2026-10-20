@@ -62,21 +62,11 @@ public static class ConfigFlagExtensions
 
 public class AccountantConfiguration : IPluginConfiguration
 {
+    // Submersible-only build: only the submersible timers are tracked by default.
     public const ConfigFlags DefaultFlags =
         ConfigFlags.Enabled
       | ConfigFlags.WindowVisible
-      | ConfigFlags.Retainers
-      | ConfigFlags.Airships
-      | ConfigFlags.Submersibles
-      | ConfigFlags.Crops
-      | ConfigFlags.AetherialWheels
-      | ConfigFlags.Squadron
-      | ConfigFlags.MapAllowance
-      | ConfigFlags.MiniCactpot
-      | ConfigFlags.JumboCactpot
-      | ConfigFlags.LeveAllowances
-      | ConfigFlags.CustomDelivery
-      | ConfigFlags.Tribes;
+      | ConfigFlags.Submersibles;
 
     public int Version { get; set; } = 4;
 

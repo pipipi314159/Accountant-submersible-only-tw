@@ -46,8 +46,8 @@ public partial class TimerWindow : IDisposable
         SortCache();
         _cropCache       = (CropCache)_cache.First(c => c is CropCache);
         _retainerCache   = (RetainerCache)_cache.First(c => c is RetainerCache);
-        _subCache        = (MachineCache)_cache.First(c => c is MachineCache);
-        _airshipCache    = (MachineCache)_cache.Last(c => c is MachineCache);
+        _subCache        = (MachineCache)_cache.First(c => c is MachineCache && c.Name == "Submersibles");
+        _airshipCache    = (MachineCache)_cache.First(c => c is MachineCache && c.Name == "Airships");
         _completedString = StringId.Completed.Value();
         _availableString = StringId.Available.Value();
 

@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using Accountant.Enums;
 using Accountant.Gui.Timer;
 using Accountant.Timers;
 using Accountant.Util;
@@ -36,8 +37,21 @@ public sealed partial class TimerManager : IDisposable
         ];
     }
 
+    // Submersible-only build: TimerWindow and DtrManager still expect the retainer, crop and airship caches to exist,
+    // so they are created, but with a flag that is never set so that they are never drawn.
+    private const ConfigFlags HiddenFlags = ConfigFlags.Enabled | (ConfigFlags)0x40000000;
+
     public TimerWindow.BaseCache[] CreateCaches(TimerWindow window)
-        => _managers.Select(m => m.CreateCache(window)).ToArray();
+    {
+        TimerWindow.BaseCache[] caches =
+        [
+            new TimerWindow.RetainerCache(window, HiddenFlags, RetainerTimers),
+            new TimerWindow.CropCache(window, HiddenFlags, PlotCropTimers, PrivateCropTimers),
+            new TimerWindow.MachineCache(window, HiddenFlags, "Airships", MachineType.Airship, AirshipTimers, SubmersibleTimers),
+            .. _managers.Select(m => m.CreateCache(window)),
+        ];
+        return caches;
+    }
 
     public void CheckSettings()
     {
