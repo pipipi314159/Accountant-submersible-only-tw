@@ -99,36 +99,33 @@ internal static class Localization
 
     private static readonly Regex JumboTextJp = new(@"(?<ticket>\d{4})番を", RegexOptions.Compiled | RegexOptions.ExplicitCapture);
 
-    public static void Initialize(IDataManager data)
+    private static void Guard(IPluginLog log, string what, System.Action action)
+    {
+        try
+        {
+            action();
+        }
+        catch (System.Exception ex)
+        {
+            log.Warning(ex, "Could not read {What} from the game data, using defaults instead.", what);
+        }
+    }
+
+    public static void Initialize(IDataManager data, IPluginLog log)
     {
         if (_initialized)
             return;
 
         _initialized = true;
-        var territories    = data.Excel.GetSheet<TerritoryType>();
-        var names          = data.Excel.GetSheet<PlaceName>();
-        var addon          = data.Excel.GetSheet<Addon>();
-        var goldSaucerTalk = data.Excel.GetSheet<RawRow>(data.Language.ToLumina(), "goldsaucertalk");
 
-        var territory = territories.GetRow((uint)HousingZone.Mist);
-        var name      = names.GetRow(territory.PlaceName.RowId);
-        LocalizationDict<StringId>.Register(StringId.Mist, name.Name.ExtractText());
-
-        territory = territories.GetRow((uint)HousingZone.LavenderBeds);
-        name      = names.GetRow(territory.PlaceName.RowId);
-        LocalizationDict<StringId>.Register(StringId.LavenderBeds, name.Name.ExtractText());
-
-        territory = territories.GetRow((uint)HousingZone.Goblet);
-        name      = names.GetRow(territory.PlaceName.RowId);
-        LocalizationDict<StringId>.Register(StringId.Goblet, name.Name.ExtractText());
-
-        territory = territories.GetRow((uint)HousingZone.Shirogane);
-        name      = names.GetRow(territory.PlaceName.RowId);
-        LocalizationDict<StringId>.Register(StringId.Shirogane, name.Name.ExtractText());
-
-        territory = territories.GetRow((uint)HousingZone.Empyreum);
-        name      = names.GetRow(territory.PlaceName.RowId);
-        LocalizationDict<StringId>.Register(StringId.Empyreum, name.Name.ExtractText());
+        // Defaults that do not depend on the game data. They are replaced below if the game data of this client can be read.
+        LocalizationDict<StringId>.Register(StringId.Mist,         "Mist");
+        LocalizationDict<StringId>.Register(StringId.LavenderBeds, "The Lavender Beds");
+        LocalizationDict<StringId>.Register(StringId.Goblet,       "The Goblet");
+        LocalizationDict<StringId>.Register(StringId.Shirogane,    "Shirogane");
+        LocalizationDict<StringId>.Register(StringId.Empyreum,     "Empyreum");
+        LocalizationDict<StringId>.Register(StringId.Submersible,  "Submersible");
+        LocalizationDict<StringId>.Register(StringId.Retainer,     "Retainer");
 
         LocalizationDict<StringId>.RegisterName(StringId.Unknown, data.Language, "Unknown", "不明", "Unbekannt", "Inconnu");
 
@@ -147,19 +144,55 @@ internal static class Localization
         LocalizationDict<StringId>.RegisterName(StringId.Retainers, data.Language, "Retainers", "リテイナー", "Gehilfen",      "Servants");
 
         LocalizationDict<StringId>.RegisterName(StringId.Airship, data.Language, "Airship", "飛行船", "Luftschiff", "Aéronef");
-        LocalizationDict<StringId>.Register(StringId.Submersible,
-            addon.GetRow(data.Language == ClientLanguage.Japanese ? 6881u : 6888u).Text.ExtractText());
-        LocalizationDict<StringId>.Register(StringId.Retainer, addon.GetRow(6163).Text.ExtractText());
-
         LocalizationDict<StringId>.Register(StringId.WheelFilter,
             StringParser.FromRegex(data.Language, WheelTextEn, WheelTextFr, WheelTextJp, WheelTextDe, "wheel"));
-
-        LocalizationDict<StringId>.Register(StringId.BuyMiniCactpotTicket,
-            new StringMatcherLetters(goldSaucerTalk.GetRow(16).ReadStringColumn(17).ExtractText()));
-        LocalizationDict<StringId>.Register(StringId.BuyJumboCactpotTicket,
-            new StringMatcherLetters(addon.GetRow(9276).Text.ExtractText()));
         LocalizationDict<StringId>.Register(StringId.FilterJumboCactpotTicket,
             StringParser.FromRegex(data.Language, JumboTextEn, JumboTextFr, JumboTextJp, JumboTextDe, "ticket"));
-        SetCropCommands(data);
+
+        Guard(log, "housing zone names", () =>
+        {
+            var territories = data.Excel.GetSheet<TerritoryType>();
+            var names       = data.Excel.GetSheet<PlaceName>();
+
+            var territory = territories.GetRow((uint)HousingZone.Mist);
+            var name      = names.GetRow(territory.PlaceName.RowId);
+            LocalizationDict<StringId>.Register(StringId.Mist, name.Name.ExtractText());
+
+            territory = territories.GetRow((uint)HousingZone.LavenderBeds);
+            name      = names.GetRow(territory.PlaceName.RowId);
+            LocalizationDict<StringId>.Register(StringId.LavenderBeds, name.Name.ExtractText());
+
+            territory = territories.GetRow((uint)HousingZone.Goblet);
+            name      = names.GetRow(territory.PlaceName.RowId);
+            LocalizationDict<StringId>.Register(StringId.Goblet, name.Name.ExtractText());
+
+            territory = territories.GetRow((uint)HousingZone.Shirogane);
+            name      = names.GetRow(territory.PlaceName.RowId);
+            LocalizationDict<StringId>.Register(StringId.Shirogane, name.Name.ExtractText());
+
+            territory = territories.GetRow((uint)HousingZone.Empyreum);
+            name      = names.GetRow(territory.PlaceName.RowId);
+            LocalizationDict<StringId>.Register(StringId.Empyreum, name.Name.ExtractText());
+        });
+
+        Guard(log, "submersible and retainer names", () =>
+        {
+            var addon = data.Excel.GetSheet<Addon>();
+            LocalizationDict<StringId>.Register(StringId.Submersible,
+                addon.GetRow(data.Language == ClientLanguage.Japanese ? 6881u : 6888u).Text.ExtractText());
+            LocalizationDict<StringId>.Register(StringId.Retainer, addon.GetRow(6163).Text.ExtractText());
+        });
+
+        Guard(log, "cactpot ticket texts", () =>
+        {
+            var addon          = data.Excel.GetSheet<Addon>();
+            var goldSaucerTalk = data.Excel.GetSheet<RawRow>(data.Language.ToLumina(), "goldsaucertalk");
+            LocalizationDict<StringId>.Register(StringId.BuyMiniCactpotTicket,
+                new StringMatcherLetters(goldSaucerTalk.GetRow(16).ReadStringColumn(17).ExtractText()));
+            LocalizationDict<StringId>.Register(StringId.BuyJumboCactpotTicket,
+                new StringMatcherLetters(addon.GetRow(9276).Text.ExtractText()));
+        });
+
+        Guard(log, "crop commands", () => SetCropCommands(data));
     }
 }

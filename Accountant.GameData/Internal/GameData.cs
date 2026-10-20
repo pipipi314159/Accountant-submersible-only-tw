@@ -79,12 +79,31 @@ internal class GameData : IGameData
             ? ret
             : throw new ArgumentOutOfRangeException($"{worldId} is not a valid world id.");
 
+    private static T? TryCreate<T>(IPluginLog log, string what, System.Func<T> create) where T : class
+    {
+        try
+        {
+            return create();
+        }
+        catch (System.Exception ex)
+        {
+            log.Warning(ex, "Could not load {What} from the game data. Features that use it are unavailable.", what);
+            return null;
+        }
+    }
+
     public GameData(IPluginLog log, IGameGui gui, IClientState state, IFramework framework, IDataManager data, IObjectTable objects)
     {
         _fcTracker ??= new FreeCompanyTracker(log, gui, state, framework, objects);
-        // Submersible-only build: crops, wheels, maps and plots are not loaded.
+        // Not needed for the submersible timers. If the game data of this client cannot be read, they are left out
+        // and only the features that use them are unavailable.
+        _crops     ??= TryCreate(log, "crops",            () => new Crops(log, data));
+        _wheels    ??= TryCreate(log, "aetherial wheels", () => new Wheels(data));
+        _maps      ??= TryCreate(log, "treasure maps",    () => new Maps(data));
+        _plots     ??= TryCreate(log, "housing plots",    () => new Plots(data));
         SetupWorlds(data);
         ++_subscribers;
+        Localization.Initialize(data, log);
     }
 
     private static void SetupWorlds(IDataManager data)
