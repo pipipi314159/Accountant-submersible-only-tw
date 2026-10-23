@@ -16,6 +16,11 @@
     <Compile Remove="Manager\TimerManager.MapManager.cs" />
   </ItemGroup>
 
+  <!-- Copy the plugin icon next to the dll so /xlplugins can show it for dev plugins. -->
+  <ItemGroup>
+    <None Include="..\images\icon.png" Link="images\icon.png" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\Accountant.GameData\Accountant.GameData.csproj" />
     <ProjectReference Include="..\AddonWatcher\AddonWatcher.csproj" />
