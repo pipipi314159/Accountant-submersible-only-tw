@@ -1,19 +1,11 @@
-name: Accountant
+name: Accountant (TW)
 author: Ottermandias
 description: |-
-  Keep track of retainer, airship, submersible, aetherial wheel and crop timers
-  as well as several miscellaneous tasks of multiple characters.
-punchline: Character task timers.
-repo_url: https://github.com/Ottermandias/Accountant
+  Submersible-only build of Accountant for the Taiwan client (API13).
+  台服潛水艇精簡版：記錄潛水艇探索回航計時。
+punchline: Submersible return timers (TW).
+repo_url: https://github.com/pipipi314159/Accountant-submersible-only-tw
 tags:
-  - Airship
-  - Gardening
-  - Crops
-  - Retainer
-  - Multiple Characters
-  - Account
-  - Timer
   - Submarine
   - Submersible
-  - Tasks
-  - Cactpot
+  - Timer
